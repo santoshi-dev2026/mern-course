@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Replace with YOUR connection string from Atlas (Day 4)
 
-const MONGO_URI = 'mongodb://mernStudent:Mern2026Atlas@ac-wbfdoze-shard-00-00.6usqx6p.mongodb.net:27017,ac-wbfdoze-shard-00-01.6usqx6p.mongodb.net:27017,ac-wbfdoze-shard-00-02.6usqx6p.mongodb.net:27017/?ssl=true&replicaSet=atlas-b82nyt-shard-0&authSource=admin&appName=Cluster0';
+const MONGO_URI = 'mongodb+srv://mernStudent:<db_password>@cluster0.6usqx6p.mongodb.net/?appName=Cluster0';
 
  
 
@@ -56,9 +56,13 @@ mongoose.connect(MONGO_URI)
 
 const studentSchema = new mongoose.Schema({
 
-    name:    { type: String, required: true },
+    name: { type: String, required: true },
 
-    surname: { type: String, required: true }
+    surname: { type: String, required: true },
+
+    email: { type: String, required: true },
+
+    mobile: { type: String, required: true }
 
 });
 
@@ -91,6 +95,9 @@ app.post('/submit', async function(req, res) {
         const studentName    = req.body.name;
 
         const studentSurname = req.body.surname;
+        const studentEmail = req.body.email;
+
+        const studentMobile = req.body.mobile;
 
  
 
@@ -110,7 +117,12 @@ app.post('/submit', async function(req, res) {
 
             name:    studentName,
 
-            surname: studentSurname
+            surname: studentSurname,
+
+            email: studentEmail,
+
+            mobile: studentMobile
+
 
         });
 
@@ -137,6 +149,10 @@ app.post('/submit', async function(req, res) {
                 <p>Name: ${studentName}</p>
 
                 <p>Surname: ${studentSurname}</p>
+                
+                <p>Email: ${studentEmail}</p>
+
+                <p>Mobile: ${studentMobile}</p>
 
                 <p>Your details have been saved to the database.</p>
 
